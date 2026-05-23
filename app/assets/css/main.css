@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background-color: #f7f6f3;
+    color: #1a1a1a;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: 'Playfair Display', serif;
+    letter-spacing: -0.01em;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-white rounded-2xl shadow-card border border-black/5;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all;
+  }
+
+  .btn-primary {
+    @apply btn bg-brand text-white hover:bg-brand-600 active:scale-[0.98];
+  }
+
+  .btn-secondary {
+    @apply btn bg-white text-ink border border-black/10 hover:bg-cream-soft;
+  }
+
+  .btn-danger {
+    @apply btn bg-danger text-white hover:bg-red-700;
+  }
+
+  .btn-ghost {
+    @apply btn text-ink-soft hover:bg-black/5;
+  }
+
+  .input {
+    @apply w-full px-3.5 py-2.5 rounded-lg border border-black/10 bg-white text-sm
+           focus:outline-none focus:border-brand focus:ring-2 focus:ring-brand/15
+           placeholder:text-black/30;
+  }
+
+  .label {
+    @apply block text-sm font-medium text-ink mb-1.5;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .chip-success {
+    @apply chip bg-green-50 text-green-700 border border-green-200;
+  }
+
+  .chip-warning {
+    @apply chip bg-amber-50 text-amber-700 border border-amber-200;
+  }
+
+  .chip-info {
+    @apply chip bg-sky-50 text-sky-700 border border-sky-200;
+  }
+
+  .chip-danger {
+    @apply chip bg-red-50 text-red-700 border border-red-200;
+  }
+
+  .chip-muted {
+    @apply chip bg-gray-100 text-gray-700 border border-gray-200;
+  }
+
+  .table-base {
+    @apply w-full text-sm;
+  }
+  .table-base thead th {
+    @apply text-left text-xs font-semibold uppercase tracking-wider text-ink-soft px-4 py-3 bg-cream-soft border-b border-black/5;
+  }
+  .table-base tbody td {
+    @apply px-4 py-3 border-b border-black/5 align-middle;
+  }
+  .table-base tbody tr:hover {
+    @apply bg-cream-soft/60;
+  }
+}
+
+/* Scrollbar polish */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
