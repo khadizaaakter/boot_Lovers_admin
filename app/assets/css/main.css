@@ -110,10 +110,6 @@
   .card {
     border-radius: 1rem;
   }
-  /* Prevent horizontal page scroll caused by oversized children */
-  html, body {
-    overflow-x: hidden;
-  }
 }
 
 /* Scrollbar polish */
