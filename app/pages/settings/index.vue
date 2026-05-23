@@ -4,11 +4,11 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
       <aside class="lg:col-span-1">
-        <nav class="card p-2">
+        <nav class="card p-2 flex lg:flex-col gap-1 overflow-x-auto -mx-1 px-1 lg:overflow-visible lg:mx-0">
           <button
             v-for="t in tabs"
             :key="t.id"
-            class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors text-left"
+            class="flex items-center gap-2 lg:gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors text-left whitespace-nowrap shrink-0 lg:w-full"
             :class="active === t.id ? 'bg-cream-soft text-brand-700 font-semibold' : 'hover:bg-cream-soft text-ink-soft'"
             @click="active = t.id"
           >
@@ -18,9 +18,9 @@
         </nav>
       </aside>
 
-      <section class="lg:col-span-3 space-y-4">
+      <section class="lg:col-span-3 space-y-4 min-w-0">
         <!-- Store -->
-        <div v-if="active === 'store'" class="card p-6 space-y-5">
+        <div v-if="active === 'store'" class="card p-4 sm:p-6 space-y-5">
           <h3 class="font-display text-xl font-semibold">Store Information</h3>
           <div class="grid sm:grid-cols-2 gap-4">
             <div>
@@ -59,7 +59,7 @@
         </div>
 
         <!-- Profile -->
-        <div v-if="active === 'profile'" class="card p-6 space-y-5">
+        <div v-if="active === 'profile'" class="card p-4 sm:p-6 space-y-5">
           <h3 class="font-display text-xl font-semibold">Your Profile</h3>
           <div class="flex items-center gap-4">
             <div class="w-16 h-16 rounded-full bg-brand text-white text-2xl font-display font-bold flex items-center justify-center">A</div>
@@ -92,19 +92,19 @@
         </div>
 
         <!-- Payments -->
-        <div v-if="active === 'payments'" class="card p-6 space-y-5">
+        <div v-if="active === 'payments'" class="card p-4 sm:p-6 space-y-5">
           <h3 class="font-display text-xl font-semibold">Payment Methods</h3>
-          <div v-for="m in methods" :key="m.name" class="flex items-center justify-between p-4 rounded-xl border border-black/10">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-lg bg-cream-soft flex items-center justify-center">
+          <div v-for="m in methods" :key="m.name" class="flex items-center justify-between gap-3 p-4 rounded-xl border border-black/10">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-10 h-10 rounded-lg bg-cream-soft flex items-center justify-center shrink-0">
                 <Icon :name="m.icon" class="w-5 h-5" />
               </div>
-              <div>
-                <p class="font-medium">{{ m.name }}</p>
-                <p class="text-xs text-ink-soft">{{ m.desc }}</p>
+              <div class="min-w-0">
+                <p class="font-medium truncate">{{ m.name }}</p>
+                <p class="text-xs text-ink-soft truncate">{{ m.desc }}</p>
               </div>
             </div>
-            <label class="relative inline-flex items-center cursor-pointer">
+            <label class="relative inline-flex items-center cursor-pointer shrink-0">
               <input type="checkbox" :checked="m.enabled" class="sr-only peer" />
               <div class="w-10 h-5 bg-black/10 peer-checked:bg-brand rounded-full transition-colors after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:after:translate-x-5"></div>
             </label>
@@ -112,20 +112,20 @@
         </div>
 
         <!-- Shipping -->
-        <div v-if="active === 'shipping'" class="card p-6 space-y-5">
+        <div v-if="active === 'shipping'" class="card p-4 sm:p-6 space-y-5">
           <h3 class="font-display text-xl font-semibold">Shipping Zones</h3>
-          <div v-for="z in zones" :key="z.name" class="p-4 rounded-xl border border-black/10 flex items-center justify-between">
-            <div>
-              <p class="font-medium">{{ z.name }}</p>
+          <div v-for="z in zones" :key="z.name" class="p-4 rounded-xl border border-black/10 flex items-center justify-between gap-3">
+            <div class="min-w-0">
+              <p class="font-medium truncate">{{ z.name }}</p>
               <p class="text-xs text-ink-soft">{{ z.regions }}</p>
             </div>
-            <p class="font-semibold">{{ z.rate }}</p>
+            <p class="font-semibold shrink-0">{{ z.rate }}</p>
           </div>
           <button class="btn-secondary"><Icon name="ph:plus" class="w-4 h-4" />Add zone</button>
         </div>
 
         <!-- Notifications -->
-        <div v-if="active === 'notifications'" class="card p-6 space-y-3">
+        <div v-if="active === 'notifications'" class="card p-4 sm:p-6 space-y-3">
           <h3 class="font-display text-xl font-semibold">Notifications</h3>
           <div v-for="n in notifs" :key="n.label" class="flex items-center justify-between py-2">
             <div>
@@ -140,7 +140,7 @@
         </div>
 
         <!-- Security -->
-        <div v-if="active === 'security'" class="card p-6 space-y-5">
+        <div v-if="active === 'security'" class="card p-4 sm:p-6 space-y-5">
           <h3 class="font-display text-xl font-semibold">Security</h3>
           <div class="grid sm:grid-cols-2 gap-4">
             <div>

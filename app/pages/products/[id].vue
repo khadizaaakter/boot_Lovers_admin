@@ -18,7 +18,7 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
       <div class="lg:col-span-2 space-y-4">
-        <div class="card p-5 space-y-4">
+        <div class="card p-4 sm:p-5 space-y-4">
           <h3 class="font-display text-lg font-semibold">Basic Information</h3>
           <div>
             <label class="label">Product name</label>
@@ -36,7 +36,7 @@
           </div>
         </div>
 
-        <div class="card p-5 space-y-4">
+        <div class="card p-4 sm:p-5 space-y-4">
           <h3 class="font-display text-lg font-semibold">Pricing & Stock</h3>
           <div class="grid sm:grid-cols-3 gap-4">
             <div>
@@ -54,7 +54,7 @@
           </div>
         </div>
 
-        <div class="card p-5">
+        <div class="card p-4 sm:p-5">
           <h3 class="font-display text-lg font-semibold mb-3">Performance</h3>
           <div class="grid sm:grid-cols-3 gap-3">
             <div class="rounded-xl bg-cream-soft p-4">
@@ -77,7 +77,7 @@
       </div>
 
       <div class="space-y-4">
-        <div class="card p-5">
+        <div class="card p-4 sm:p-5">
           <img :src="product.image" class="w-full aspect-square rounded-xl object-cover bg-cream" />
           <button class="btn-secondary w-full mt-3">
             <Icon name="ph:image" class="w-4 h-4" />
@@ -85,7 +85,7 @@
           </button>
         </div>
 
-        <div class="card p-5 space-y-4">
+        <div class="card p-4 sm:p-5 space-y-4">
           <h3 class="font-display text-lg font-semibold">Organization</h3>
           <div>
             <label class="label">Category</label>

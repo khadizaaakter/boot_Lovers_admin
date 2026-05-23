@@ -3,7 +3,7 @@
     <PageHeader title="Reviews" subtitle="What customers are saying about Boot Lovers." />
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-      <div class="card p-5">
+      <div class="card p-4 sm:p-5">
         <p class="text-xs uppercase tracking-wider text-ink-soft">Average rating</p>
         <p class="text-4xl font-display font-bold mt-1">{{ avg.toFixed(1) }}</p>
         <div class="flex gap-0.5 mt-1">
@@ -16,7 +16,7 @@
         </div>
         <p class="text-xs text-ink-soft mt-2">Based on {{ state.reviews.length }} reviews</p>
       </div>
-      <div class="card p-5 md:col-span-2">
+      <div class="card p-4 sm:p-5 md:col-span-2">
         <p class="text-xs uppercase tracking-wider text-ink-soft mb-3">Rating breakdown</p>
         <div v-for="r in 5" :key="r" class="flex items-center gap-3 mb-1.5">
           <span class="text-xs w-6">{{ 6 - r }} ★</span>
@@ -32,19 +32,19 @@
     </div>
 
     <div class="card overflow-hidden">
-      <div class="px-5 py-4 border-b border-black/5 flex items-center justify-between">
+      <div class="px-4 sm:px-5 py-4 border-b border-black/5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <h3 class="font-display text-lg font-semibold">All Reviews</h3>
-        <select v-model="statusFilter" class="input max-w-[180px]">
+        <select v-model="statusFilter" class="input w-full sm:max-w-[180px]">
           <option value="">All statuses</option>
           <option>Published</option>
           <option>Pending</option>
         </select>
       </div>
       <ul class="divide-y divide-black/5">
-        <li v-for="r in filtered" :key="r.id" class="px-5 py-5">
-          <div class="flex items-start justify-between gap-3">
-            <div class="flex-1 min-w-0">
-              <div class="flex items-center gap-2">
+        <li v-for="r in filtered" :key="r.id" class="px-4 sm:px-5 py-4 sm:py-5">
+          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+            <div class="flex-1 min-w-0 order-2 sm:order-1">
+              <div class="flex items-center gap-2 flex-wrap">
                 <p class="font-medium">{{ r.customer }}</p>
                 <span class="text-xs text-ink-soft">·</span>
                 <p class="text-xs text-ink-soft">{{ r.date }}</p>
@@ -60,7 +60,7 @@
               <p class="text-sm mt-2 leading-relaxed">"{{ r.comment }}"</p>
               <p class="text-xs text-brand mt-2">{{ r.product }}</p>
             </div>
-            <div class="flex flex-col items-end gap-2">
+            <div class="flex sm:flex-col items-center sm:items-end justify-between sm:justify-start gap-2 order-1 sm:order-2 shrink-0">
               <StatusChip :status="r.status" />
               <div class="flex gap-1">
                 <button class="btn-ghost p-1.5"><Icon name="ph:check" class="w-4 h-4 text-success" /></button>

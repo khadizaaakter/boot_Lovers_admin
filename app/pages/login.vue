@@ -1,5 +1,5 @@
 <template>
-  <div class="grid md:grid-cols-2 gap-0 w-full max-w-5xl bg-white rounded-3xl shadow-soft overflow-hidden">
+  <div class="grid md:grid-cols-2 gap-0 w-full max-w-md md:max-w-5xl bg-white rounded-3xl md:rounded-3xl shadow-soft overflow-hidden">
     <!-- Visual side -->
     <div class="relative hidden md:block bg-gradient-to-br from-brand-50 via-cream to-brand-100 p-10">
       <div class="font-display text-3xl font-bold">
@@ -24,8 +24,12 @@
     </div>
 
     <!-- Form side -->
-    <div class="p-8 sm:p-12 flex flex-col justify-center">
-      <h1 class="font-display text-3xl font-bold">Welcome back</h1>
+    <div class="p-6 sm:p-10 md:p-12 flex flex-col justify-center">
+      <div class="md:hidden font-display text-2xl font-bold tracking-tight inline-flex mb-6">
+        <span class="text-ink">Boot</span>
+        <span class="text-brand">&nbsp;Lovers</span>
+      </div>
+      <h1 class="font-display text-2xl sm:text-3xl font-bold">Welcome back</h1>
       <p class="text-sm text-ink-soft mt-1">Sign in to manage your store.</p>
 
       <form class="mt-8 space-y-4" @submit.prevent="signIn">

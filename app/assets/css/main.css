@@ -26,7 +26,7 @@
   }
 
   .btn {
-    @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all;
+    @apply inline-flex items-center justify-center gap-2 px-3 sm:px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap;
   }
 
   .btn-primary {
@@ -83,13 +83,36 @@
     @apply w-full text-sm;
   }
   .table-base thead th {
-    @apply text-left text-xs font-semibold uppercase tracking-wider text-ink-soft px-4 py-3 bg-cream-soft border-b border-black/5;
+    @apply text-left text-xs font-semibold uppercase tracking-wider text-ink-soft px-3 sm:px-4 py-3 bg-cream-soft border-b border-black/5 whitespace-nowrap;
   }
   .table-base tbody td {
-    @apply px-4 py-3 border-b border-black/5 align-middle;
+    @apply px-3 sm:px-4 py-3 border-b border-black/5 align-middle;
   }
   .table-base tbody tr:hover {
     @apply bg-cream-soft/60;
+  }
+
+  /* Filter bars: search grows, selects/buttons fill row on mobile */
+  .filter-bar {
+    @apply flex flex-wrap items-center gap-2 sm:gap-3;
+  }
+  .filter-bar > .input,
+  .filter-bar > select.input {
+    @apply w-full sm:max-w-[200px] sm:w-auto;
+  }
+  .filter-bar > .filter-search {
+    @apply relative w-full sm:flex-1 sm:min-w-[220px];
+  }
+}
+
+/* Mobile-only utilities */
+@media (max-width: 640px) {
+  .card {
+    border-radius: 1rem;
+  }
+  /* Prevent horizontal page scroll caused by oversized children */
+  html, body {
+    overflow-x: hidden;
   }
 }
 

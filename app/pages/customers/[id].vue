@@ -18,7 +18,7 @@
     </PageHeader>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-      <div class="card p-5 lg:col-span-1 text-center">
+      <div class="card p-4 sm:p-5 lg:col-span-1 text-center">
         <img :src="customer.avatar" class="w-24 h-24 rounded-full mx-auto object-cover" />
         <h3 class="font-display text-xl font-bold mt-3">{{ customer.name }}</h3>
         <StatusChip :status="customer.status" class="mt-2" />
@@ -50,10 +50,11 @@
 
       <div class="lg:col-span-2 space-y-4">
         <div class="card overflow-hidden">
-          <div class="px-5 py-4 border-b border-black/5 flex items-center justify-between">
+          <div class="px-4 sm:px-5 py-4 border-b border-black/5 flex items-center justify-between">
             <h3 class="font-display text-lg font-semibold">Recent Orders</h3>
             <NuxtLink to="/orders" class="text-sm text-brand hover:underline">View all</NuxtLink>
           </div>
+          <div class="overflow-x-auto">
           <table class="table-base">
             <thead>
               <tr>
@@ -79,9 +80,10 @@
               </tr>
             </tbody>
           </table>
+          </div>
         </div>
 
-        <div class="card p-5">
+        <div class="card p-4 sm:p-5">
           <h3 class="font-display text-lg font-semibold mb-3">Notes</h3>
           <textarea rows="4" class="input" placeholder="Add a private note about this customer…"></textarea>
         </div>

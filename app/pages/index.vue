@@ -26,13 +26,13 @@
 
     <!-- Charts row -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
-      <div class="card p-5 lg:col-span-2">
-        <div class="flex items-center justify-between mb-4">
+      <div class="card p-4 sm:p-5 lg:col-span-2">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
           <div>
             <h3 class="font-display text-lg font-semibold">Sales Overview</h3>
             <p class="text-xs text-ink-soft">Monthly gross revenue this year</p>
           </div>
-          <div class="flex gap-1 text-xs">
+          <div class="flex gap-1 text-xs self-start sm:self-auto">
             <button class="px-2.5 py-1 rounded-md bg-brand text-white">12M</button>
             <button class="px-2.5 py-1 rounded-md hover:bg-black/5">6M</button>
             <button class="px-2.5 py-1 rounded-md hover:bg-black/5">30D</button>
@@ -42,13 +42,13 @@
         <BarChart :data="series.monthlySales" :labels="series.monthLabels" />
       </div>
 
-      <div class="card p-5">
-        <div class="flex items-center justify-between mb-4">
-          <div>
+      <div class="card p-4 sm:p-5">
+        <div class="flex items-center justify-between mb-4 gap-3">
+          <div class="min-w-0">
             <h3 class="font-display text-lg font-semibold">Traffic</h3>
             <p class="text-xs text-ink-soft">Visitors this week</p>
           </div>
-          <span class="chip-success">+18%</span>
+          <span class="chip-success shrink-0">+18%</span>
         </div>
         <div class="h-40">
           <SparkLine :data="series.weeklyVisitors" color="#16a34a" />
@@ -73,7 +73,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
       <!-- Recent orders -->
       <div class="card lg:col-span-2 overflow-hidden">
-        <div class="px-5 py-4 flex items-center justify-between border-b border-black/5">
+        <div class="px-4 sm:px-5 py-4 flex items-center justify-between border-b border-black/5">
           <h3 class="font-display text-lg font-semibold">Recent Orders</h3>
           <NuxtLink to="/orders" class="text-sm text-brand hover:underline">View all</NuxtLink>
         </div>
@@ -117,18 +117,18 @@
 
       <!-- Top products -->
       <div class="card overflow-hidden">
-        <div class="px-5 py-4 flex items-center justify-between border-b border-black/5">
+        <div class="px-4 sm:px-5 py-4 flex items-center justify-between border-b border-black/5">
           <h3 class="font-display text-lg font-semibold">Top Products</h3>
           <NuxtLink to="/products" class="text-sm text-brand hover:underline">View all</NuxtLink>
         </div>
         <ul class="divide-y divide-black/5">
-          <li v-for="p in topProducts" :key="p.id" class="px-5 py-3 flex items-center gap-3">
-            <img :src="p.image" class="w-12 h-12 rounded-lg object-cover bg-cream" />
+          <li v-for="p in topProducts" :key="p.id" class="px-4 sm:px-5 py-3 flex items-center gap-3">
+            <img :src="p.image" class="w-12 h-12 rounded-lg object-cover bg-cream shrink-0" />
             <div class="min-w-0 flex-1">
               <p class="text-sm font-medium truncate">{{ p.name }}</p>
               <p class="text-xs text-ink-soft">{{ p.sales }} sold</p>
             </div>
-            <span class="text-sm font-semibold">{{ formatMoney(p.price) }}</span>
+            <span class="text-sm font-semibold shrink-0">{{ formatMoney(p.price) }}</span>
           </li>
         </ul>
       </div>

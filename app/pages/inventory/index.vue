@@ -20,12 +20,12 @@
       <StatCard label="Out of Stock" :value="counts.out" icon="ph:x-circle" tone="red" />
     </div>
 
-    <div class="card p-4 mb-4 flex flex-wrap gap-3">
-      <div class="relative flex-1 min-w-[220px]">
+    <div class="card p-3 sm:p-4 mb-4 filter-bar">
+      <div class="filter-search">
         <Icon name="ph:magnifying-glass" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-black/40" />
         <input v-model="search" type="text" placeholder="Search SKU or product…" class="input pl-9" />
       </div>
-      <select v-model="filter" class="input max-w-[200px]">
+      <select v-model="filter" class="input">
         <option value="">All stock levels</option>
         <option value="instock">In stock</option>
         <option value="low">Low stock (&lt; 10)</option>

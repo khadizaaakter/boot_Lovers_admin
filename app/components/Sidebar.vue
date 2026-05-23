@@ -7,15 +7,22 @@
   ></div>
 
   <aside
-    class="fixed top-0 left-0 h-screen w-64 bg-white border-r border-black/5 z-40 transition-transform duration-300 flex flex-col"
+    class="fixed top-0 left-0 h-screen w-[85vw] max-w-[18rem] sm:w-72 lg:w-64 bg-white border-r border-black/5 z-40 transition-transform duration-300 flex flex-col"
     :class="open ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
   >
     <!-- Brand -->
-    <div class="h-16 flex items-center px-6 border-b border-black/5">
-      <NuxtLink to="/" class="font-display text-2xl font-bold tracking-tight inline-flex">
+    <div class="h-16 flex items-center justify-between px-5 sm:px-6 border-b border-black/5">
+      <NuxtLink to="/" class="font-display text-2xl font-bold tracking-tight inline-flex" @click="$emit('close')">
         <span class="text-ink">Boot</span>
         <span class="text-brand">&nbsp;Lovers</span>
       </NuxtLink>
+      <button
+        class="lg:hidden p-2 -mr-2 rounded-lg hover:bg-black/5"
+        aria-label="Close sidebar"
+        @click="$emit('close')"
+      >
+        <Icon name="ph:x" class="w-5 h-5" />
+      </button>
     </div>
 
     <!-- Nav -->
@@ -30,6 +37,7 @@
               :to="item.to"
               class="nav-item group"
               :exact-active-class="'nav-item-active'"
+              @click="$emit('close')"
             >
               <Icon :name="item.icon" class="w-5 h-5 shrink-0" />
               <span>{{ item.label }}</span>

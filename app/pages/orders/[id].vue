@@ -10,7 +10,7 @@
           <Icon name="ph:printer" class="w-4 h-4" />
           Print
         </button>
-        <select :value="order.status" class="input max-w-[180px]" @change="onStatus">
+        <select :value="order.status" class="input w-full sm:w-auto sm:max-w-[180px]" @change="onStatus">
           <option>Pending</option>
           <option>Processing</option>
           <option>Shipped</option>
@@ -23,21 +23,21 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
       <div class="lg:col-span-2 space-y-4">
         <div class="card overflow-hidden">
-          <div class="px-5 py-4 border-b border-black/5 flex items-center justify-between">
+          <div class="px-4 sm:px-5 py-4 border-b border-black/5 flex items-center justify-between gap-2">
             <h3 class="font-display text-lg font-semibold">Items</h3>
-            <span class="text-sm text-ink-soft">{{ order.products.length }} product{{ order.products.length > 1 ? 's' : '' }}</span>
+            <span class="text-xs sm:text-sm text-ink-soft shrink-0">{{ order.products.length }} product{{ order.products.length > 1 ? 's' : '' }}</span>
           </div>
           <ul class="divide-y divide-black/5">
-            <li v-for="(p, i) in order.products" :key="i" class="px-5 py-4 flex items-center gap-4">
-              <img :src="p.image" class="w-14 h-14 rounded-lg object-cover bg-cream" />
+            <li v-for="(p, i) in order.products" :key="i" class="px-4 sm:px-5 py-4 flex items-center gap-3 sm:gap-4">
+              <img :src="p.image" class="w-12 h-12 sm:w-14 sm:h-14 rounded-lg object-cover bg-cream shrink-0" />
               <div class="flex-1 min-w-0">
                 <p class="font-medium truncate">{{ p.name }}</p>
                 <p class="text-xs text-ink-soft">Qty: {{ p.qty }} · {{ formatMoney(p.price) }} each</p>
               </div>
-              <p class="font-semibold">{{ formatMoney(p.price * p.qty) }}</p>
+              <p class="font-semibold shrink-0">{{ formatMoney(p.price * p.qty) }}</p>
             </li>
           </ul>
-          <div class="px-5 py-4 bg-cream-soft border-t border-black/5 space-y-1">
+          <div class="px-4 sm:px-5 py-4 bg-cream-soft border-t border-black/5 space-y-1">
             <div class="flex justify-between text-sm">
               <span class="text-ink-soft">Subtotal</span>
               <span>{{ formatMoney(order.total - 15) }}</span>
@@ -57,7 +57,7 @@
           </div>
         </div>
 
-        <div class="card p-5">
+        <div class="card p-4 sm:p-5">
           <h3 class="font-display text-lg font-semibold mb-4">Timeline</h3>
           <ul class="space-y-4">
             <li v-for="(t, i) in timeline" :key="i" class="flex gap-3">
@@ -75,7 +75,7 @@
       </div>
 
       <div class="space-y-4">
-        <div class="card p-5">
+        <div class="card p-4 sm:p-5">
           <h3 class="font-display text-lg font-semibold mb-3">Customer</h3>
           <div class="flex items-center gap-3">
             <div class="w-11 h-11 rounded-full bg-brand-50 text-brand-700 flex items-center justify-center font-semibold">
@@ -92,14 +92,14 @@
           </button>
         </div>
 
-        <div class="card p-5">
+        <div class="card p-4 sm:p-5">
           <h3 class="font-display text-lg font-semibold mb-3">Shipping Address</h3>
           <p class="text-sm">{{ order.shipping.address }}</p>
           <p class="text-sm">{{ order.shipping.city }}, {{ order.shipping.zip }}</p>
           <p class="text-sm">{{ order.shipping.country }}</p>
         </div>
 
-        <div class="card p-5">
+        <div class="card p-4 sm:p-5">
           <h3 class="font-display text-lg font-semibold mb-3">Payment</h3>
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-lg bg-cream-soft flex items-center justify-center">

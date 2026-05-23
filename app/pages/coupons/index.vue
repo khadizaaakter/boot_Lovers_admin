@@ -60,7 +60,7 @@
           <label class="label">Code</label>
           <input v-model="newCp.code" type="text" class="input" placeholder="e.g. SUMMER20" />
         </div>
-        <div class="grid grid-cols-2 gap-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <label class="label">Type</label>
             <select v-model="newCp.type" class="input">
@@ -73,7 +73,7 @@
             <input v-model.number="newCp.value" type="number" class="input" />
           </div>
         </div>
-        <div class="grid grid-cols-2 gap-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <label class="label">Usage limit</label>
             <input v-model.number="newCp.limit" type="number" class="input" />

@@ -15,7 +15,7 @@
 
     <form class="grid grid-cols-1 lg:grid-cols-3 gap-4" @submit.prevent="save">
       <div class="lg:col-span-2 space-y-4">
-        <div class="card p-5 space-y-4">
+        <div class="card p-4 sm:p-5 space-y-4">
           <h3 class="font-display text-lg font-semibold">Basic Information</h3>
           <div>
             <label class="label">Product name</label>
@@ -37,7 +37,7 @@
           </div>
         </div>
 
-        <div class="card p-5 space-y-4">
+        <div class="card p-4 sm:p-5 space-y-4">
           <h3 class="font-display text-lg font-semibold">Pricing & Inventory</h3>
           <div class="grid sm:grid-cols-3 gap-4">
             <div>
@@ -84,7 +84,7 @@
           </div>
         </div>
 
-        <div class="card p-5 space-y-4">
+        <div class="card p-4 sm:p-5 space-y-4">
           <h3 class="font-display text-lg font-semibold">Media</h3>
           <div class="border-2 border-dashed border-black/10 rounded-xl p-8 text-center hover:border-brand transition-colors cursor-pointer">
             <Icon name="ph:cloud-arrow-up" class="w-10 h-10 mx-auto text-ink-soft" />
@@ -95,7 +95,7 @@
       </div>
 
       <div class="space-y-4">
-        <div class="card p-5 space-y-4">
+        <div class="card p-4 sm:p-5 space-y-4">
           <h3 class="font-display text-lg font-semibold">Organization</h3>
           <div>
             <label class="label">Category</label>
@@ -117,7 +117,7 @@
           </div>
         </div>
 
-        <div class="card p-5 space-y-3">
+        <div class="card p-4 sm:p-5 space-y-3">
           <h3 class="font-display text-lg font-semibold">SEO</h3>
           <div>
             <label class="label">Meta title</label>

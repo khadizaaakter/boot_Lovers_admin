@@ -17,22 +17,22 @@
     </PageHeader>
 
     <!-- Filters -->
-    <div class="card p-4 mb-4 flex flex-wrap items-center gap-3">
-      <div class="relative flex-1 min-w-[220px]">
+    <div class="card p-3 sm:p-4 mb-4 filter-bar">
+      <div class="filter-search">
         <Icon name="ph:magnifying-glass" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-black/40" />
         <input v-model="search" type="text" placeholder="Search products by name or SKU…" class="input pl-9" />
       </div>
-      <select v-model="categoryFilter" class="input max-w-[180px]">
+      <select v-model="categoryFilter" class="input">
         <option value="">All categories</option>
         <option v-for="c in state.categories" :key="c.id" :value="c.name">{{ c.name }}</option>
       </select>
-      <select v-model="statusFilter" class="input max-w-[180px]">
+      <select v-model="statusFilter" class="input">
         <option value="">All statuses</option>
         <option>Published</option>
         <option>Draft</option>
         <option>Out of stock</option>
       </select>
-      <button class="btn-ghost" @click="resetFilters">
+      <button class="btn-ghost w-full sm:w-auto" @click="resetFilters">
         <Icon name="ph:arrow-counter-clockwise" class="w-4 h-4" />
         Reset
       </button>
@@ -103,11 +103,11 @@
           </tbody>
         </table>
       </div>
-      <div class="flex items-center justify-between px-5 py-3 border-t border-black/5">
-        <p class="text-xs text-ink-soft">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-4 sm:px-5 py-3 border-t border-black/5">
+        <p class="text-xs text-ink-soft text-center sm:text-left">
           Showing <span class="font-semibold">{{ filtered.length }}</span> of {{ state.products.length }} products
         </p>
-        <div class="flex items-center gap-1">
+        <div class="flex items-center justify-center sm:justify-end gap-1">
           <button class="btn-ghost p-1.5"><Icon name="ph:caret-left" class="w-4 h-4" /></button>
           <button class="px-3 py-1 rounded-md bg-brand text-white text-xs">1</button>
           <button class="px-3 py-1 rounded-md hover:bg-black/5 text-xs">2</button>
