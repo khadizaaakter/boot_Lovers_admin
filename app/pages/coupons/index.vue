@@ -58,7 +58,7 @@
       <div class="space-y-3">
         <div>
           <label class="label">Code</label>
-          <input v-model="newCp.code" type="text" class="input" placeholder="e.g. SUMMER20" />
+          <input v-model="newCp.code" type="text" class="input" placeholder="SUMMER20" />
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>

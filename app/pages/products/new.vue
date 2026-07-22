@@ -6,12 +6,16 @@
     >
       <template #actions>
         <NuxtLink to="/products" class="btn-secondary">Cancel</NuxtLink>
-        <button class="btn-primary" @click="save">
+        <button class="btn-primary" :disabled="saving" @click="save">
           <Icon name="ph:check" class="w-4 h-4" />
-          Save Product
+          {{ saving ? "Saving…" : "Save Product" }}
         </button>
       </template>
     </PageHeader>
+
+    <div v-if="formError" class="card p-4 mb-4 text-sm text-danger">
+      {{ formError }}
+    </div>
 
     <form class="grid grid-cols-1 lg:grid-cols-3 gap-4" @submit.prevent="save">
       <div class="lg:col-span-2 space-y-4">
@@ -19,21 +23,41 @@
           <h3 class="font-display text-lg font-semibold">Basic Information</h3>
           <div>
             <label class="label">Product name</label>
-            <input v-model="form.name" type="text" class="input" placeholder="e.g. Heritage Leather Chelsea Boot" />
+            <input
+              v-model="form.name"
+              type="text"
+              class="input"
+              placeholder="Heritage Leather Chelsea Boot"
+              @input="syncSlug"
+            />
           </div>
           <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="label">Slug</label>
+              <input v-model="form.slug" type="text" class="input" placeholder="heritage-leather-chelsea-boot" />
+            </div>
             <div>
               <label class="label">SKU</label>
               <input v-model="form.sku" type="text" class="input" placeholder="BL-XXX-000" />
             </div>
-            <div>
-              <label class="label">Brand</label>
-              <input v-model="form.brand" type="text" class="input" placeholder="Boot Lovers" />
-            </div>
+          </div>
+          <div>
+            <label class="label">Short description</label>
+            <input
+              v-model="form.short_description"
+              type="text"
+              class="input"
+              placeholder="A quick one-liner for listings"
+            />
           </div>
           <div>
             <label class="label">Description</label>
-            <textarea v-model="form.description" rows="5" class="input" placeholder="Tell the story of this product…"></textarea>
+            <textarea
+              v-model="form.description"
+              rows="5"
+              class="input"
+              placeholder="Tell the story of this product…"
+            ></textarea>
           </div>
         </div>
 
@@ -45,51 +69,36 @@
               <input v-model.number="form.price" type="number" class="input" placeholder="0.00" />
             </div>
             <div>
-              <label class="label">Compare-at price</label>
-              <input v-model.number="form.comparePrice" type="number" class="input" placeholder="Optional" />
+              <label class="label">Discount price</label>
+              <input v-model.number="form.discount_price" type="number" class="input" placeholder="Optional" />
             </div>
             <div>
               <label class="label">Stock</label>
               <input v-model.number="form.stock" type="number" class="input" placeholder="0" />
             </div>
           </div>
-          <div class="grid sm:grid-cols-2 gap-4">
-            <div>
-              <label class="label">Sizes</label>
-              <div class="flex flex-wrap gap-2">
-                <label
-                  v-for="s in sizes"
-                  :key="s"
-                  class="px-3 py-1.5 rounded-lg border border-black/10 text-sm cursor-pointer hover:bg-cream-soft"
-                >
-                  <input type="checkbox" :value="s" v-model="form.sizes" class="mr-1.5" />
-                  {{ s }}
-                </label>
-              </div>
-            </div>
-            <div>
-              <label class="label">Colors</label>
-              <div class="flex flex-wrap gap-2">
-                <label
-                  v-for="c in colors"
-                  :key="c.name"
-                  class="px-3 py-1.5 rounded-lg border border-black/10 text-sm cursor-pointer hover:bg-cream-soft inline-flex items-center gap-2"
-                >
-                  <input type="checkbox" :value="c.name" v-model="form.colors" />
-                  <span class="w-3.5 h-3.5 rounded-full inline-block border border-black/10" :style="{ backgroundColor: c.hex }"></span>
-                  {{ c.name }}
-                </label>
-              </div>
-            </div>
-          </div>
         </div>
 
         <div class="card p-4 sm:p-5 space-y-4">
-          <h3 class="font-display text-lg font-semibold">Media</h3>
-          <div class="border-2 border-dashed border-black/10 rounded-xl p-8 text-center hover:border-brand transition-colors cursor-pointer">
-            <Icon name="ph:cloud-arrow-up" class="w-10 h-10 mx-auto text-ink-soft" />
-            <p class="text-sm mt-2">Drag & drop images here, or <span class="text-brand font-medium">browse</span></p>
-            <p class="text-xs text-ink-soft mt-1">PNG, JPG up to 5MB · Recommended 1200x1200</p>
+          <h3 class="font-display text-lg font-semibold">Thumbnail</h3>
+          <input type="file" accept="image/*" class="input" @change="onThumbnailChange" />
+          <img
+            v-if="thumbnailPreview"
+            :src="thumbnailPreview"
+            class="w-32 h-32 object-cover rounded-lg"
+          />
+        </div>
+
+        <div class="card p-4 sm:p-5 space-y-4">
+          <h3 class="font-display text-lg font-semibold">Gallery images</h3>
+          <input type="file" accept="image/*" multiple class="input" @change="onImagesChange" />
+          <div v-if="imagePreviews.length" class="flex flex-wrap gap-3">
+            <img
+              v-for="(src, i) in imagePreviews"
+              :key="i"
+              :src="src"
+              class="w-20 h-20 object-cover rounded-lg"
+            />
           </div>
         </div>
       </div>
@@ -99,33 +108,25 @@
           <h3 class="font-display text-lg font-semibold">Organization</h3>
           <div>
             <label class="label">Category</label>
-            <select v-model="form.category" class="input">
-              <option v-for="c in state.categories" :key="c.id" :value="c.name">{{ c.name }}</option>
+            <select v-model="form.category_id" class="input" :disabled="loadingCategories">
+              <option value="" disabled>
+                {{ loadingCategories ? "Loading categories…" : "Select a category" }}
+              </option>
+              <option v-for="c in categories" :key="c.category_id" :value="c.category_id">
+                {{ c.name }}
+              </option>
             </select>
           </div>
           <div>
             <label class="label">Status</label>
             <select v-model="form.status" class="input">
-              <option>Published</option>
-              <option>Draft</option>
-              <option>Out of stock</option>
+              <option :value="true">Published</option>
+              <option :value="false">Draft</option>
             </select>
           </div>
           <div>
-            <label class="label">Tags</label>
-            <input type="text" class="input" placeholder="leather, premium, handmade" />
-          </div>
-        </div>
-
-        <div class="card p-4 sm:p-5 space-y-3">
-          <h3 class="font-display text-lg font-semibold">SEO</h3>
-          <div>
-            <label class="label">Meta title</label>
-            <input type="text" class="input" />
-          </div>
-          <div>
-            <label class="label">Meta description</label>
-            <textarea rows="3" class="input"></textarea>
+            <label class="label">Sort order</label>
+            <input v-model.number="form.sort_order" type="number" class="input" />
           </div>
         </div>
       </div>
@@ -134,52 +135,79 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue'
-const router = useRouter()
-const { state, addProduct } = useAdminData()
+import { reactive, ref, onMounted } from "vue";
 
-const sizes = ['38', '39', '40', '41', '42', '43', '44', '45']
-const colors = [
-  { name: 'Tan', hex: '#c19a6b' },
-  { name: 'Brown', hex: '#5c3a21' },
-  { name: 'Black', hex: '#1a1a1a' },
-  { name: 'Cream', hex: '#f5efe6' },
-  { name: 'Navy', hex: '#1f2a44' }
-]
+const router = useRouter();
+const { list: listCategories } = useCategoriesApi();
+const { create } = useProductsApi();
+
+const categories = ref([]);
+const loadingCategories = ref(true);
+const saving = ref(false);
+const formError = ref("");
+const thumbnailPreview = ref("");
+const imagePreviews = ref([]);
 
 const form = reactive({
-  name: '',
-  sku: '',
-  brand: 'Boot Lovers',
-  description: '',
+  category_id: "",
+  name: "",
+  slug: "",
+  sku: "",
+  short_description: "",
+  description: "",
   price: 0,
-  comparePrice: 0,
+  discount_price: 0,
   stock: 0,
-  sizes: [],
-  colors: [],
-  category: 'Boots',
-  status: 'Draft'
-})
+  thumbnail: null,
+  status: true,
+  sort_order: 0,
+  images: [],
+});
 
-const save = () => {
-  if (!form.name) {
-    alert('Please enter a product name.')
-    return
+onMounted(async () => {
+  try {
+    categories.value = await listCategories();
+  } catch (e) {
+    formError.value = "Could not load categories. Is the API running?";
+  } finally {
+    loadingCategories.value = false;
   }
-  addProduct({
-    name: form.name,
-    sku: form.sku || `BL-NEW-${Date.now().toString().slice(-4)}`,
-    brand: form.brand,
-    price: form.price,
-    comparePrice: form.comparePrice || undefined,
-    stock: form.stock,
-    category: form.category,
-    status: form.stock === 0 ? 'Out of stock' : form.status,
-    image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=400',
-    rating: 0,
-    sales: 0,
-    createdAt: new Date().toISOString().slice(0, 10)
-  })
-  router.push('/products')
-}
+});
+
+const syncSlug = () => {
+  form.slug = form.name
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9-]/g, "");
+};
+
+const onThumbnailChange = (e) => {
+  const file = e.target.files?.[0] || null;
+  form.thumbnail = file;
+  thumbnailPreview.value = file ? URL.createObjectURL(file) : "";
+};
+
+const onImagesChange = (e) => {
+  const files = Array.from(e.target.files || []);
+  form.images = files;
+  imagePreviews.value = files.map((f) => URL.createObjectURL(f));
+};
+
+const save = async () => {
+  if (!form.name || !form.slug || !form.sku || !form.category_id) {
+    formError.value = "Name, slug, SKU and category are required.";
+    return;
+  }
+  saving.value = true;
+  formError.value = "";
+  try {
+    await create({ ...form });
+    router.push("/products");
+  } catch (e) {
+    formError.value = e?.data?.message || "Could not save this product.";
+  } finally {
+    saving.value = false;
+  }
+};
 </script>
